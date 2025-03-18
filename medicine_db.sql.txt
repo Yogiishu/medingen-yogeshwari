@@ -1,0 +1,77 @@
+CREATE DATABASE IF NOT EXISTS medicine_db;
+USE medicine_db;
+
+-- Drop tables if they exist
+DROP TABLE IF EXISTS medicines;
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS faqs;
+
+-- Create Medicines Table
+CREATE TABLE medicines (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    generic_name VARCHAR(255),
+    description TEXT,
+    chemical_formulation TEXT,
+    image_url VARCHAR(255),
+    price DECIMAL(10,2),
+    discount_price DECIMAL(10,2)
+);
+
+-- Create Reviews Table
+CREATE TABLE reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    medicine_id INT,
+    rating DECIMAL(2,1),
+    review_text TEXT,
+    FOREIGN KEY (medicine_id) REFERENCES medicines(id) ON DELETE CASCADE
+);
+
+-- Create FAQs Table
+CREATE TABLE faqs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    medicine_id INT,
+    question TEXT,
+    answer TEXT,
+    FOREIGN KEY (medicine_id) REFERENCES medicines(id) ON DELETE CASCADE
+);
+
+INSERT INTO medicines (name, generic_name, manufacturer, description, chemical_formulation, image_url, price, discount_price, rating)
+VALUES
+('Dolo 650 mg', 'Paracetamol 650 mg', 'MICRO LABS LIMITED', 'Pain relief and fever reducer', 'CHQ2 | CHQ2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 35.00, 30.00, 4.5),
+('Calpol 500 mg', 'Paracetamol 500 mg', 'GlaxoSmithKline', 'Used for mild to moderate pain relief', 'C8H9NO2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 20.00, 18.00, 4.2),
+('Crocin Advance', 'Paracetamol 500 mg', 'GlaxoSmithKline', 'Effective pain reliever', 'C8H9NO2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 22.00, 19.50, 4.3),
+('Brufen 400 mg', 'Ibuprofen 400 mg', 'Abbott', 'Used for pain relief and inflammation', 'C13H18O2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 50.00, 45.00, 4.6),
+('Aspirin 500 mg', 'Aspirin 500 mg', 'Bayer', 'Blood thinner and pain reliever', 'C9H8O4', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 25.00, 22.00, 4.1),
+('Flexon MR', 'Paracetamol + Ibuprofen', 'Sanofi', 'Relieves muscle pain and inflammation', 'C8H9NO2 | C13H18O2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 40.00, 35.00, 4.4),
+('Nicip 100 mg', 'Nimesulide 100 mg', 'Cipla', 'Pain and inflammation relief', 'C13H16N2O2S', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 30.00, 25.00, 4.0),
+('Meftal-Spas', 'Dicyclomine + Mefenamic Acid', 'Blue Cross', 'Relieves abdominal pain and cramps', 'C15H21NO2 | C15H15NO2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 45.00, 39.00, 4.2),
+('Saridon', 'Paracetamol + Caffeine', 'Piramal Healthcare', 'Headache relief medicine', 'C8H9NO2 | C8H10N4O2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 15.00, 13.00, 4.3),
+('Disprin', 'Aspirin + Caffeine', 'Reckitt Benckiser', 'Used for headaches and body pain', 'C9H8O4 | C8H10N4O2', 'https://m.media-amazon.com/images/I/91PYiM15cDL.jpg', 18.00, 15.50, 4.0);
+
+
+-- Insert sample Reviews
+INSERT INTO reviews (medicine_id, rating, review_text) VALUES
+(1, 4.0, 'The medicine is good but a bit costly compared to generic ones.'),
+(2, 3.5, 'Works well, but takes time to act.'),
+(3, 5.0, 'Excellent pain relief, highly recommended.'),
+(4, 4.5, 'Best for headaches and minor pain.'),
+(5, 3.0, 'Effective for diabetes, but has mild side effects.'),
+(6, 4.2, 'Cleared my allergy quickly.'),
+(7, 4.8, 'Works well for asthma relief.'),
+(8, 3.7, 'Decent acid reflux medicine, but alternatives exist.'),
+(9, 4.0, 'GERD relief in a few hours.'),
+(10, 4.6, 'Cleared my bacterial infection effectively.');
+
+-- Insert sample FAQs
+INSERT INTO faqs (medicine_id, question, answer) VALUES
+(1, 'What if I vomit after taking Paracetamol?', 'If you vomit within 30 minutes, retake the dose.'),
+(2, 'Can I take Crocin with other painkillers?', 'Consult a doctor before combining painkillers.'),
+(3, 'Is Brufen safe for long-term use?', 'Prolonged use may cause stomach ulcers.'),
+(4, 'Can I take Aspirin daily?', 'Only if prescribed for heart disease prevention.'),
+(5, 'Does Metformin cause weight loss?', 'Some patients may experience mild weight loss.'),
+(6, 'Is Cetirizine non-drowsy?', 'Cetirizine may cause mild drowsiness in some people.'),
+(7, 'Can Montelukast be used for flu?', 'Montelukast is mainly for asthma and allergies.'),
+(8, 'Does Rantac need to be taken before meals?', 'Yes, it works best on an empty stomach.'),
+(9, 'How long does Pantoprazole take to work?', 'Usually within 1 to 2 hours.'),
+(10, 'Is Amoxicillin safe for children?', 'Yes, but dosage depends on age and weight.');
