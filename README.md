@@ -21,4 +21,4 @@ npm run dev
 backend run commend
 
 
-pyt6hon app.py
+pytthon app.py
