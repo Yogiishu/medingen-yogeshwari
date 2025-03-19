@@ -20,5 +20,4 @@ npm run dev
 
 backend run commend
 
-
 python app.py
